@@ -166,6 +166,7 @@ var MentionDirective = (function () {
                             nativeElement.dispatchEvent(evt);
                         }
                         this.startPos = -1;
+                        this.searchString = '';
                         this.itemSelected.emit(this.searchList.activeItem);
                         return false;
                     }
