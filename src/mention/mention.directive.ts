@@ -46,19 +46,22 @@ export class MentionDirective {
   // event emitted whenever the search term changes
   @Output() searchTerm = new EventEmitter();
 
+  // emit when user selects item
+  @Output() itemSelected = new EventEmitter();
+
   // the character that will trigger the menu behavior
   private triggerChar: string = "@";
 
   // option to specify the field in the objects to be used as the item label
   private labelKey:string = 'label';
 
-  // option to diable internal filtering. can be used to show the full list returned 
+  // option to diable internal filtering. can be used to show the full list returned
   // from an async operation (or allows a custom filter function to be used - in future)
   private disableSearch:boolean = false;
 
   // option to limit the number of items shown in the pop-up menu
   private maxItems:number = -1;
-  
+
   // optional function to format the selected item before inserting the text
   private mentionSelect: (selection: string) => (string) = (selection: string) => selection;
 
@@ -81,7 +84,7 @@ export class MentionDirective {
       if (typeof this.items[0] == 'string') {
         // convert strings to objects
         const me = this;
-        this.items = this.items.map(function(label){ 
+        this.items = this.items.map(function(label){
           let object = {};
           object[me.labelKey] = label;
           return object;
@@ -92,7 +95,7 @@ export class MentionDirective {
       this.items.sort((a,b)=>a[this.labelKey].localeCompare(b[this.labelKey]));
       this.updateSearchList();
     }
-  }  
+  }
 
   setIframe(iframe: HTMLIFrameElement) {
     this.iframe = iframe;
@@ -179,6 +182,7 @@ export class MentionDirective {
               nativeElement.dispatchEvent(evt);
             }
             this.startPos = -1;
+            this.itemSelected.emit(this.searchList.activeItem);
             return false;
           }
           else if (event.keyCode === KEY_ESCAPE) {
