@@ -4,7 +4,7 @@
 /tmp
 /aot
 # module dist
-/mention
+# /mention
 
 # dependencies
 /node_modules
