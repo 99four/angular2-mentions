@@ -80,8 +80,6 @@ export class MentionDirective {
   ) {}
 
   ngOnInit() {
-    console.log('przed', this.items);
-
     this.items.sort((a, b) => a[this.labelKey].localeCompare(b[this.labelKey]));
 
     // if (this.items && this.items.length>0) {
@@ -152,6 +150,7 @@ export class MentionDirective {
       this.startPos = pos;
       this.startNode = (this.iframe ? this.iframe.contentWindow.getSelection() : window.getSelection()).anchorNode;
       this.stopSearch = false;
+      this.searchString = '';
       this.showSearchList(nativeElement);
       this.updateSearchList();
     }
@@ -229,23 +228,20 @@ export class MentionDirective {
   }
 
   updateSearchList() {
-    let matches: string[] = [];
+    let objects;
     if (this.items) {
-      let objects = this.items;
+      objects = this.items;
       // disabling the search relies on the async operation to do the filtering
       if (!this.disableSearch && this.searchString) {
         let searchStringLowerCase = this.searchString.toLowerCase();
         objects = this.items.filter(e => e[this.labelKey].toLowerCase().startsWith(searchStringLowerCase));
       }
-      matches = objects.map(e => e[this.labelKey]);
-      if (this.maxItems > 0) {
-        matches = matches.slice(0, this.maxItems);
-      }
     }
     // update the search list
+    console.log('search strng', this.searchString);
     if (this.searchList) {
-      this.searchList.items = this.items;
-      this.searchList.hidden = matches.length == 0;
+      this.searchList.items = objects;
+      this.searchList.hidden = objects.length === 0;
     }
   }
 
