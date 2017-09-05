@@ -15,6 +15,7 @@ export const COMMON_NAMES: any[] = [
     email: 'malgorzata.trojanowska@briisk.co',
   }, {
     id: 3,
+    name: 'joanna.paszta@briisk.co',
     email: 'joanna.paszta@briisk.co',
   }
 ];
