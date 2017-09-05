@@ -100,7 +100,6 @@ export class MentionDirective {
     //   console.log('po', this.items);
     // }
 
-    console.log(this.items);
     this.updateSearchList();
   }
 
@@ -190,7 +189,8 @@ export class MentionDirective {
             }
             this.startPos = -1;
             this.searchString = '';
-            this.itemSelected.emit(this.searchList.activeItem);
+            console.log(this.searchList.activeItemId);
+            this.itemSelected.emit(this.searchList.activeItemId);
             return false;
           }
           else if (event.keyCode === KEY_ESCAPE) {
@@ -236,7 +236,6 @@ export class MentionDirective {
       if (!this.disableSearch && this.searchString) {
         let searchStringLowerCase = this.searchString.toLowerCase();
         objects = this.items.filter(e => e[this.labelKey].toLowerCase().startsWith(searchStringLowerCase));
-        console.log('this items po',this.items);
       }
       matches = objects.map(e => e[this.labelKey]);
       if (this.maxItems > 0) {
@@ -245,7 +244,6 @@ export class MentionDirective {
     }
     // update the search list
     if (this.searchList) {
-      console.log('matches', matches);
       this.searchList.items = this.items;
       this.searchList.hidden = matches.length == 0;
     }

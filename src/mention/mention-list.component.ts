@@ -79,6 +79,10 @@ export class MentionListComponent {
     return activeItem.name ? camelize(activeItem.name) : activeItem.email;
   }
 
+  get activeItemId() {
+    return this.items[this.activeIndex].id;
+  }
+
   activateNextItem() {
     // adjust scrollable-menu offset if the next item is out of view
     let listEl: HTMLElement = this.list.nativeElement;
