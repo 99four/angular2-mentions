@@ -53,7 +53,7 @@ export class MentionDirective {
   private triggerChar: string = "@";
 
   // option to specify the field in the objects to be used as the item label
-  private labelKey:string = 'label';
+  private labelKey:string = 'email';
 
   // option to diable internal filtering. can be used to show the full list returned
   // from an async operation (or allows a custom filter function to be used - in future)
@@ -80,21 +80,28 @@ export class MentionDirective {
   ) {}
 
   ngOnInit() {
-    if (this.items && this.items.length>0) {
-      if (typeof this.items[0] == 'string') {
-        // convert strings to objects
-        const me = this;
-        this.items = this.items.map(function(label){
-          let object = {};
-          object[me.labelKey] = label;
-          return object;
-        });
-      }
-      // remove items without an labelKey or valueKey
-      this.items = this.items.filter(e => e[this.labelKey]);
-      this.items.sort((a,b)=>a[this.labelKey].localeCompare(b[this.labelKey]));
-      this.updateSearchList();
-    }
+    console.log('przed', this.items);
+
+    this.items.sort((a, b) => a[this.labelKey].localeCompare(b[this.labelKey]));
+
+    // if (this.items && this.items.length>0) {
+    //   if (typeof this.items[0] == 'string') {
+    //     // convert strings to objects
+    //     const me = this;
+    //     this.items = this.items.map(function(label){
+    //       let object = {};
+    //       object[me.labelKey] = label;
+    //       return object;
+    //     });
+    //   }
+    //   // remove items without an labelKey or valueKey
+    //   this.items = this.items.filter(e => e[this.labelKey]);
+    //   this.items.sort((a,b)=>a[this.labelKey].localeCompare(b[this.labelKey]));
+    //   console.log('po', this.items);
+    // }
+
+    console.log(this.items);
+    this.updateSearchList();
   }
 
   setIframe(iframe: HTMLIFrameElement) {
@@ -229,6 +236,7 @@ export class MentionDirective {
       if (!this.disableSearch && this.searchString) {
         let searchStringLowerCase = this.searchString.toLowerCase();
         objects = this.items.filter(e => e[this.labelKey].toLowerCase().startsWith(searchStringLowerCase));
+        console.log('this items po',this.items);
       }
       matches = objects.map(e => e[this.labelKey]);
       if (this.maxItems > 0) {
@@ -237,7 +245,8 @@ export class MentionDirective {
     }
     // update the search list
     if (this.searchList) {
-      this.searchList.items = matches;
+      console.log('matches', matches);
+      this.searchList.items = this.items;
       this.searchList.hidden = matches.length == 0;
     }
   }

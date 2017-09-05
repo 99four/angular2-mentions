@@ -136,8 +136,8 @@ export function getContentEditableCaretCoords(ctx: { iframe: HTMLIFrameElement, 
 }
 
 function localToRelativeCoordinates(
-  ctx: { iframe: HTMLIFrameElement, parent?: Element }, 
-  element: Element, 
+  ctx: { iframe: HTMLIFrameElement, parent?: Element },
+  element: Element,
   coordinates: { top: number; left: number }
 ) {
   let obj = <HTMLElement>element;
@@ -172,4 +172,10 @@ function localToRelativeCoordinates(
       iframe = null;
     }
   }
+}
+
+export function camelize(str) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+    return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+  }).replace(/\s+/g, '');
 }

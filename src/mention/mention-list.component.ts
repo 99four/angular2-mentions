@@ -1,6 +1,6 @@
 import { Component, ElementRef, Output, EventEmitter, ViewChild } from '@angular/core';
 
-import { isInputOrTextAreaElement, getContentEditableCaretCoords } from './mention-utils';
+import { isInputOrTextAreaElement, getContentEditableCaretCoords, camelize } from './mention-utils';
 import { getCaretCoordinates } from './caret-coords';
 
 /**
@@ -30,7 +30,7 @@ import { getCaretCoordinates } from './caret-coords';
   template: `
     <ul class="dropdown-menu scrollable-menu" #list [hidden]="hidden">
         <li *ngFor="let item of items; let i = index" [class.active]="activeIndex==i">
-            <a class="dropdown-item" (mousedown)="activeIndex=i;itemClick.emit();$event.preventDefault()">{{item}}</a>
+            <a class="dropdown-item" (mousedown)="activeIndex=i;itemClick.emit();$event.preventDefault()">{{item.email}} 5</a>
         </li>
     </ul>
     `
@@ -75,7 +75,8 @@ export class MentionListComponent {
   }
 
   get activeItem() {
-    return this.items[this.activeIndex];
+    const activeItem = this.items[this.activeIndex];
+    return activeItem.name ? camelize(activeItem.name) : activeItem.email;
   }
 
   activateNextItem() {
@@ -92,7 +93,7 @@ export class MentionListComponent {
       }
     }
     // select the next item
-    this.activeIndex = Math.max(Math.min(this.activeIndex + 1, this.items.length - 1), 0);    
+    this.activeIndex = Math.max(Math.min(this.activeIndex + 1, this.items.length - 1), 0);
   }
 
   activatePreviousItem() {
@@ -111,7 +112,7 @@ export class MentionListComponent {
     // select the previous item
     this.activeIndex = Math.max(Math.min(this.activeIndex - 1, this.items.length - 1), 0);
   }
-  
+
   resetScroll() {
     this.list.nativeElement.scrollTop = 0;
   }
