@@ -123,3 +123,4 @@ MentionListComponent = __decorate([
     __metadata("design:paramtypes", [core_1.ElementRef])
 ], MentionListComponent);
 exports.MentionListComponent = MentionListComponent;
+//# sourceMappingURL=mention-list.component.js.map

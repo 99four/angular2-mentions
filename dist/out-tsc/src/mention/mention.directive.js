@@ -280,3 +280,4 @@ MentionDirective = __decorate([
         core_1.ViewContainerRef])
 ], MentionDirective);
 exports.MentionDirective = MentionDirective;
+//# sourceMappingURL=mention.directive.js.map

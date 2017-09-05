@@ -166,3 +166,4 @@ function camelize(str) {
         .replace(/\s/g, '');
 }
 exports.camelize = camelize;
+//# sourceMappingURL=mention-utils.js.map

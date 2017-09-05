@@ -15,6 +15,7 @@ export declare class MentionListComponent {
     constructor(_element: ElementRef);
     position(nativeParentElement: HTMLInputElement, iframe?: HTMLIFrameElement): void;
     readonly activeItem: any;
+    readonly activeItemId: any;
     activateNextItem(): void;
     activatePreviousItem(): void;
     resetScroll(): void;
