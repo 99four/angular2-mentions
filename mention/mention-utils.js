@@ -37,13 +37,13 @@ function insertValue(el, start, end, text, iframe, noRecursion) {
 }
 exports.insertValue = insertValue;
 function isInputOrTextAreaElement(el) {
-    return el != null && (el.nodeName == 'INPUT' || el.nodeName == 'TEXTAREA' || el.nodeName == 'ION-TEXTAREA');
+    return el != null && (el.nodeName == 'INPUT' || el.nodeName == 'TEXTAREA');
 }
 exports.isInputOrTextAreaElement = isInputOrTextAreaElement;
 ;
 function isTextElement(el) {
     return el != null &&
-        (el.nodeName == 'INPUT' || el.nodeName == 'TEXTAREA' || el.nodeName == '#text' || el.nodeName == 'ION-TEXTAREA');
+        (el.nodeName == 'INPUT' || el.nodeName == 'TEXTAREA' || el.nodeName == '#text');
 }
 exports.isTextElement = isTextElement;
 ;
