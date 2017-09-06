@@ -44,12 +44,12 @@ export function insertValue(
 }
 
 export function isInputOrTextAreaElement(el: HTMLElement): boolean {
-  return el != null && (el.nodeName == 'INPUT' || el.nodeName == 'TEXTAREA' || el.nodeName == 'ION-TEXTAREA');
+  return el != null && (el.nodeName == 'INPUT' || el.nodeName == 'TEXTAREA');
 };
 
 export function isTextElement(el: HTMLElement): boolean {
   return el != null &&
-    (el.nodeName == 'INPUT' || el.nodeName == 'TEXTAREA' || el.nodeName == '#text' || el.nodeName == 'ION-TEXTAREA');
+    (el.nodeName == 'INPUT' || el.nodeName == 'TEXTAREA' || el.nodeName == '#text');
 };
 
 export function setCaretPosition(el: HTMLInputElement, pos: number, iframe: HTMLIFrameElement = null) {
