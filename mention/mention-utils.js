@@ -68,11 +68,14 @@ function getCaretPosition(el, iframe) {
     if (iframe === void 0) { iframe = null; }
     //console.log("getCaretPosition", el);
     if (isInputOrTextAreaElement(el)) {
+        console.log('dobry');
         var val = el.value;
         return val.slice(0, el.selectionStart).length;
     }
     else {
+        console.log('baj');
         var selObj = getWindowSelection(iframe); //window.getSelection();
+        console.log(selObj);
         if (selObj.rangeCount > 0) {
             var selRange = selObj.getRangeAt(0);
             var position = selRange.startOffset;
@@ -99,6 +102,7 @@ function getWindowSelection(iframe) {
         return iframe.contentWindow.getSelection();
     }
 }
+exports.getWindowSelection = getWindowSelection;
 function getContentEditableCaretCoords(ctx) {
     var markerTextChar = '\ufeff';
     var markerId = 'sel_' + new Date().getTime() + '_' + Math.random().toString().substr(2);

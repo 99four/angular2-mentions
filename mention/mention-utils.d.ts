@@ -4,6 +4,7 @@ export declare function isInputOrTextAreaElement(el: HTMLElement): boolean;
 export declare function isTextElement(el: HTMLElement): boolean;
 export declare function setCaretPosition(el: HTMLInputElement, pos: number, iframe?: HTMLIFrameElement): void;
 export declare function getCaretPosition(el: HTMLInputElement, iframe?: HTMLIFrameElement): number;
+export declare function getWindowSelection(iframe: HTMLIFrameElement): Selection;
 export declare function getContentEditableCaretCoords(ctx: {
     iframe: HTMLIFrameElement;
     parent?: Element;

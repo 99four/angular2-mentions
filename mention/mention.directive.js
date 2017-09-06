@@ -132,6 +132,7 @@ var MentionDirective = (function () {
         }
         //console.log("keyHandler", this.startPos, pos, val, charPressed, event);
         if (charPressed == this.triggerChar) {
+            console.log('hello', pos);
             this.startPos = pos;
             this.startNode = (this.iframe ? this.iframe.contentWindow.getSelection() : window.getSelection()).anchorNode;
             this.stopSearch = false;
@@ -157,6 +158,7 @@ var MentionDirective = (function () {
                 }
                 else if (!this.searchList.hidden) {
                     if (event.keyCode === KEY_TAB || event.keyCode === KEY_ENTER) {
+                        console.log('enter');
                         this.stopEvent(event);
                         this.searchList.hidden = true;
                         // value is inserted without a trailing space for consistency
@@ -196,7 +198,10 @@ var MentionDirective = (function () {
                     return false;
                 }
                 else {
-                    var mention = val.substring(this.startPos + 1, pos);
+                    console.log(this.startPos, pos);
+                    var mention = mention_utils_1.isInputOrTextAreaElement(nativeElement) ?
+                        val.substring(this.startPos + 1, pos) :
+                        mention_utils_1.getWindowSelection(this.iframe).anchorNode.nodeValue.substring(this.startPos + 1, pos);
                     if (event.keyCode !== KEY_BACKSPACE) {
                         mention += charPressed;
                     }
