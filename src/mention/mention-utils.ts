@@ -71,11 +71,14 @@ export function setCaretPosition(el: HTMLInputElement, pos: number, iframe: HTML
 export function getCaretPosition(el: HTMLInputElement, iframe: HTMLIFrameElement = null) {
   //console.log("getCaretPosition", el);
   if (isInputOrTextAreaElement(el)) {
+    console.log('dobry')
     var val = el.value;
     return val.slice(0, el.selectionStart).length;
   }
   else {
+    console.log('baj')
     var selObj = getWindowSelection(iframe); //window.getSelection();
+    console.log(selObj);
     if (selObj.rangeCount>0) {
       var selRange = selObj.getRangeAt(0);
       var position = selRange.startOffset;
@@ -95,7 +98,7 @@ function getDocument(iframe: HTMLIFrameElement) {
   }
 }
 
-function getWindowSelection(iframe: HTMLIFrameElement): Selection {
+export function getWindowSelection(iframe: HTMLIFrameElement): Selection {
   if (!iframe) {
     return window.getSelection();
   } else {

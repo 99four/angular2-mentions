@@ -2,7 +2,10 @@ import { Directive, ElementRef, Input, ComponentFactoryResolver, ViewContainerRe
 import { EventEmitter, Output } from "@angular/core";
 
 import { MentionListComponent } from './mention-list.component';
-import { getValue, insertValue, getCaretPosition, setCaretPosition } from './mention-utils';
+import {
+  getValue, insertValue, getCaretPosition, setCaretPosition, isInputOrTextAreaElement,
+  getWindowSelection
+} from './mention-utils';
 
 const KEY_BACKSPACE = 8;
 const KEY_TAB = 9;
@@ -147,6 +150,7 @@ export class MentionDirective {
     }
     //console.log("keyHandler", this.startPos, pos, val, charPressed, event);
     if (charPressed == this.triggerChar) {
+      console.log('hello', pos);
       this.startPos = pos;
       this.startNode = (this.iframe ? this.iframe.contentWindow.getSelection() : window.getSelection()).anchorNode;
       this.stopSearch = false;
@@ -174,6 +178,7 @@ export class MentionDirective {
         }
         else if (!this.searchList.hidden) {
           if (event.keyCode === KEY_TAB || event.keyCode === KEY_ENTER) {
+            console.log('enter');
             this.stopEvent(event);
             this.searchList.hidden = true;
             // value is inserted without a trailing space for consistency
@@ -215,7 +220,10 @@ export class MentionDirective {
           return false;
         }
         else {
-          let mention = val.substring(this.startPos + 1, pos);
+          console.log(this.startPos, pos);
+          let mention = isInputOrTextAreaElement(nativeElement) ?
+            val.substring(this.startPos + 1, pos) :
+            getWindowSelection(this.iframe).anchorNode.nodeValue.substring(this.startPos + 1, pos);
           if (event.keyCode !== KEY_BACKSPACE) {
             mention += charPressed;
           }
