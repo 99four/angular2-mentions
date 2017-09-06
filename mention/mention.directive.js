@@ -70,7 +70,6 @@ var MentionDirective = (function () {
     });
     MentionDirective.prototype.ngOnInit = function () {
         var _this = this;
-        console.log('przed', this.items);
         this.items.sort(function (a, b) { return a[_this.labelKey].localeCompare(b[_this.labelKey]); });
         // if (this.items && this.items.length>0) {
         //   if (typeof this.items[0] == 'string') {
@@ -136,6 +135,7 @@ var MentionDirective = (function () {
             this.startPos = pos;
             this.startNode = (this.iframe ? this.iframe.contentWindow.getSelection() : window.getSelection()).anchorNode;
             this.stopSearch = false;
+            this.searchString = '';
             this.showSearchList(nativeElement);
             this.updateSearchList();
         }
@@ -209,23 +209,20 @@ var MentionDirective = (function () {
     };
     MentionDirective.prototype.updateSearchList = function () {
         var _this = this;
-        var matches = [];
+        var objects;
         if (this.items) {
-            var objects = this.items;
+            objects = this.items;
             // disabling the search relies on the async operation to do the filtering
             if (!this.disableSearch && this.searchString) {
                 var searchStringLowerCase_1 = this.searchString.toLowerCase();
                 objects = this.items.filter(function (e) { return e[_this.labelKey].toLowerCase().startsWith(searchStringLowerCase_1); });
             }
-            matches = objects.map(function (e) { return e[_this.labelKey]; });
-            if (this.maxItems > 0) {
-                matches = matches.slice(0, this.maxItems);
-            }
         }
         // update the search list
+        console.log('search strng', this.searchString);
         if (this.searchList) {
-            this.searchList.items = this.items;
-            this.searchList.hidden = matches.length == 0;
+            this.searchList.items = objects;
+            this.searchList.hidden = objects.length === 0;
         }
     };
     MentionDirective.prototype.showSearchList = function (nativeElement) {
